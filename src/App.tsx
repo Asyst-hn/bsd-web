@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Switch, Route, Redirect } from 'react-router-dom';
+import { useAuth } from './context/auth';
+import { Home } from './pages/home/Home';
+import { Login } from './pages/login/Login';
+import { Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { useNotifications } from './context/notifications';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => {
+	const { isAuthenticated } = useAuth();
+	const { message, toggle, handleClose, severity } = useNotifications();
+
+	return (
+		<Switch>
+			<Route exact path='/login'>
+				<Login />
+			</Route>
+			<Route exact path='/'>
+				<Redirect to='/app' />
+			</Route>
+			{/* <Route path='/app'>
+				{isAuthenticated ? <Home /> : <Redirect to='/login' />}
+			</Route> */}
+			<Route path='/app'>
+				<Home />
+			</Route>
+			<Snackbar
+				open={toggle}
+				autoHideDuration={5000}
+				onClose={handleClose}
+				anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+				ClickAwayListenerProps={{ mouseEvent: false }}
+			>
+				<Alert severity={severity}>{message}</Alert>
+			</Snackbar>
+		</Switch>
+	);
+};
 
 export default App;

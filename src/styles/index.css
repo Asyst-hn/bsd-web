@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+body {
+	margin: 0;
+}
+
+#root {
+	font-family: 'Source Sans Pro', sans-serif;
+	box-sizing: border-box;
+	min-height: 100vh;
+}
+
+a:-webkit-any-link {
+	text-decoration: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+div.MuiDataGrid-cell.MuiDataGrid-cellWithRenderer.MuiDataGrid-cellLeft {
+	padding: 0px;
+}
