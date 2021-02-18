@@ -84,7 +84,7 @@ const mapTicket = (
 	clients: ClientTypeMap[],
 	statuses: StatusTypeMap[]
 ) => {
-	if (tickets) {
+	if (tickets.length > 0) {
 		const mappedTickets = tickets.map(ticket => {
 			types.forEach(type => {
 				if (ticket.tipReq === type.tipReq) {

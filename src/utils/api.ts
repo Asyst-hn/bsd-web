@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
-const { REACT_APP_BASE_URL = 'api/' } = process.env;
+const { REACT_APP_BASE_URL = 'http://200.115.188.158:8082/Api/' } = process.env;
 
 interface RequestConfig {
 	path: string;
