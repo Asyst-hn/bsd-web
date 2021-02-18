@@ -5,6 +5,8 @@ import { Switch, Route } from 'react-router-dom';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { useStyles } from './styles';
 import { TicketTable } from '../ticket-table/TicketTable';
+import { api } from '../../utils/api';
+import { useQuery } from 'react-query';
 
 export const Home: React.FC = () => {
 	const classes = useStyles();

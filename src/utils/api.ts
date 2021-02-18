@@ -1,10 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
-const { REACT_APP_BASE_URL = 'http://localhost:5000/api/v1' } = process.env;
+const { REACT_APP_BASE_URL = 'http://200.115.188.158:8082/Api/' } = process.env;
 
 interface RequestConfig {
 	path: string;
 	method: Method;
-	token?: string;
 	body?: unknown;
 }
 
@@ -23,17 +22,6 @@ export const api = async (
 
 	if (req.body) {
 		axiosConfig.data = req.body;
-	}
-
-	if (req.token) {
-		axiosConfig.headers = { authorization: `Bearer ${req.token}` };
-	}
-
-	if (options?.noCache) {
-		axiosConfig.headers = {
-			...axiosConfig.headers,
-			'cache-control': 'no-cache'
-		};
 	}
 
 	const res = await axios(axiosConfig);

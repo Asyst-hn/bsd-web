@@ -19,11 +19,8 @@ const App: React.FC = () => {
 			<Route exact path='/'>
 				<Redirect to='/app' />
 			</Route>
-			{/* <Route path='/app'>
-				{isAuthenticated ? <Home /> : <Redirect to='/login' />}
-			</Route> */}
 			<Route path='/app'>
-				<Home />
+				{isAuthenticated ? <Home /> : <Redirect to='/login' />}
 			</Route>
 			<Snackbar
 				open={toggle}

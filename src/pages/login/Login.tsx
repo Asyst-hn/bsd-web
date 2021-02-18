@@ -12,26 +12,24 @@ import { useNotifications } from '../../context/notifications';
 export const Login: React.FC = () => {
 	const classes = loginStyles();
 	const history = useHistory();
-	const { addToken, onMount } = useAuth();
+	const { setUserId, setIsAuthenticated } = useAuth();
 	const { setAlert } = useNotifications();
-
-	useEffect(() => onMount(history), []);
 
 	const { register, handleSubmit, errors } = useForm({
 		mode: 'onBlur',
-		defaultValues: { email: '', password: '' }
+		defaultValues: { username: '', password: '' }
 	});
 
 	const { mutate, isLoading, isError, error } = useMutation(
 		(body: any) =>
 			api({
-				path: '/users/login',
-				method: 'POST',
-				body
+				path: `Glb_usuarios/VerifyLogin/${body.username}&${body.password}`,
+				method: 'GET'
 			}),
 		{
 			onSuccess: res => {
-				addToken(res.data.token);
+				setUserId(res.data.userId);
+				setIsAuthenticated(true);
 				setAlert('Ha ingresado exitosamente', 'success');
 				history.push('/app');
 			}
@@ -49,10 +47,10 @@ export const Login: React.FC = () => {
 			>
 				<TextField
 					variant='outlined'
-					placeholder='Correo Electronico'
+					placeholder='Usuario'
 					autoComplete='username email'
-					name='email'
-					error={!!errors.email}
+					name='username'
+					error={!!errors.username}
 					inputRef={register({ required: true })}
 					size='small'
 					className={classes.input}
@@ -71,7 +69,7 @@ export const Login: React.FC = () => {
 
 				{isError ? (
 					<p className={classes.inputError}>
-						{(error as AxiosError)?.response?.data.message}
+						Usuario o contraseña incorrecto
 					</p>
 				) : (
 					''

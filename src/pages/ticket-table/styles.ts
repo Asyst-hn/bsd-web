@@ -5,12 +5,13 @@ export const useStyles = makeStyles({
 		display: 'flex',
 		flexDirection: 'column',
 		height: '80%',
-		margin: '64px'
+		marginLeft: '64px',
+		marginRight: '64px'
 	},
 	actionBar: {
 		display: 'flex',
 		flexDirection: 'row',
-		marginBottom: '24px',
+		margin: '24px',
 		justifyContent: 'space-around'
 	},
 	grid: {

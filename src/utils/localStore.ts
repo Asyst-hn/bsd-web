@@ -1,18 +1,18 @@
-export const storeToken = (token: string): void => {
+export const storeUser = (token: string): void => {
 	localStorage.setItem('token', JSON.stringify(token));
 };
 
-export const getToken = (): string | null => {
-	let token = localStorage.getItem('token');
+export const getUser = (): string | null => {
+	let user = localStorage.getItem('user');
 
-	if (token) {
-		token = token.replace(/^"(.*)"$/, '$1');
-		return token;
+	if (user) {
+		// token = token.replace(/^"(.*)"$/, '$1');
+		return user;
 	} else {
 		return null;
 	}
 };
 
-export const removeToken = (): void => {
-	localStorage.removeItem('token');
+export const removeUser = (): void => {
+	localStorage.removeItem('user');
 };
