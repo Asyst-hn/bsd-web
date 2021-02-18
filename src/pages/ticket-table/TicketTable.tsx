@@ -44,16 +44,18 @@ export const TicketTable: React.FC = () => {
 	);
 
 	useEffect(() => {
-		buildRows(
-			mapTicket(
-				tickets?.data,
-				ticketTypes?.data as TicketTypeMap[],
-				clients?.data as ClientTypeMap[],
-				statuses?.data as StatusTypeMap[]
-			),
-			setRows
-		);
-		setTicketCount(tickets?.data.length);
+		if (tickets) {
+			buildRows(
+				mapTicket(
+					tickets?.data,
+					ticketTypes?.data as TicketTypeMap[],
+					clients?.data as ClientTypeMap[],
+					statuses?.data as StatusTypeMap[]
+				),
+				setRows
+			);
+			setTicketCount(tickets?.data.length);
+		}
 	}, [tickets]);
 
 	return (
