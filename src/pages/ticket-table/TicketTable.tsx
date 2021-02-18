@@ -44,7 +44,7 @@ export const TicketTable: React.FC = () => {
 	);
 
 	useEffect(() => {
-		if (tickets) {
+		if (tickets?.data) {
 			buildRows(
 				mapTicket(
 					tickets?.data,
@@ -81,10 +81,10 @@ export const TicketTable: React.FC = () => {
 };
 
 const mapTicket = (
-	tickets: Ticket[],
-	types: TicketTypeMap[],
-	clients: ClientTypeMap[],
-	statuses: StatusTypeMap[]
+	tickets: Ticket[] = [],
+	types: TicketTypeMap[] = [],
+	clients: ClientTypeMap[] = [],
+	statuses: StatusTypeMap[] = []
 ) => {
 	if (tickets.length > 0) {
 		const mappedTickets = tickets.map(ticket => {
