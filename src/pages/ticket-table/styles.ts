@@ -16,5 +16,8 @@ export const useStyles = makeStyles({
 	},
 	grid: {
 		background: 'white'
+	},
+	input: {
+		margin: '0px'
 	}
 });

@@ -16,6 +16,7 @@ import {
 } from '../../utils/types';
 import { TableCellDate } from '../../components/TableCellDate';
 import { useAuth } from '../../context/auth';
+import { DatePicker } from '@material-ui/pickers';
 
 export const TicketTable: React.FC = () => {
 	const classes = useStyles();
@@ -23,8 +24,8 @@ export const TicketTable: React.FC = () => {
 	const { userId } = useAuth();
 	const columns = buildColumns(url);
 	const [rows, setRows] = useState([]);
-	const [startDate, setStartDate] = useState();
-	const [endDate, setEndDate] = useState();
+	const [dateStart, setDateStart] = useState<string>();
+	const [dateEnd, setDateEnd] = useState<string>();
 	const [ticketCount, setTicketCount] = useState(0);
 
 	const { data: ticketTypes } = useQuery('ticket-types', () =>
@@ -36,9 +37,16 @@ export const TicketTable: React.FC = () => {
 	const { data: statuses } = useQuery('statuses', () =>
 		api({ path: 'Sdk_Tickets/GetAllEstados', method: 'GET' })
 	);
-	const { data: tickets } = useQuery('tickets', () =>
+	// const { data: tickets } = useQuery('tickets', () =>
+	// 	api({
+	// 		path: `Sdk_Tickets/GetAllTickets/${userId}&2021-02-01&2021-02-15`,
+	// 		method: 'GET'
+	// 	})
+	// );
+
+	const { data: tickets, refetch } = useQuery('tickets', () =>
 		api({
-			path: `Sdk_Tickets/GetAllTickets/${userId}&2021-02-01&2021-02-15`,
+			path: `Sdk_Tickets/GetAllTickets/${userId}&${dateStart}&${dateEnd}`,
 			method: 'GET'
 		})
 	);
@@ -58,6 +66,10 @@ export const TicketTable: React.FC = () => {
 		}
 	}, [tickets]);
 
+	useEffect(() => {
+		refetch();
+	}, [dateStart, dateEnd]);
+
 	return (
 		<div className={classes.root}>
 			<div className={classes.actionBar}>
@@ -67,6 +79,33 @@ export const TicketTable: React.FC = () => {
 				<Typography variant='h5' color='primary'>
 					{'Cantidad: ' + ticketCount}
 				</Typography>
+				<DatePicker
+					label='Fecha de Inicio'
+					variant='inline'
+					format='MM/dd/yyyy'
+					helperText=''
+					value={dateStart}
+					onChange={v => setDateStart(v?.toISOString())}
+					className={classes.input}
+					inputVariant='outlined'
+					InputProps={{
+						style: { color: 'grey', height: '42px' }
+					}}
+					style={{ marginRight: '12px' }}
+				/>
+				<DatePicker
+					label='Fecha de Fin'
+					variant='inline'
+					format='MM/dd/yyyy'
+					helperText=''
+					value={dateEnd}
+					onChange={v => setDateEnd(v?.toISOString())}
+					className={classes.input}
+					inputVariant='outlined'
+					InputProps={{
+						style: { color: 'grey', height: '42px' }
+					}}
+				/>
 			</div>
 			<DataGrid
 				rows={rows}
